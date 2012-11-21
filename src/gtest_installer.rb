@@ -49,7 +49,7 @@ private
 
   def copy_needed_gtest_files
     puts "copying needed GTest files to tests dir"
-   `cp -r #{repo_path}/include/gtest tests/gtest/include`
+    FileUtil.recursive_copy "#{repo_path}/include/gtest", "tests/gtest/include"
   end
 
   def create_test_directories
