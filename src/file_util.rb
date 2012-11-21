@@ -25,6 +25,10 @@ class FileUtil
     `rm #{filename}` unless !File.exists? filename
   end
     
+  def self.recursive_copy from, to
+    `cp -r #{from} #{to}`
+    
+  end
 private
 
   def self.create_directories dirs
