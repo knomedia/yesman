@@ -13,8 +13,16 @@ class FileUtil
   end
 
   def self.clear_directory path
-    `rm -rf #{path}` unless (!File.exists? path) || (!File.directory? path)
+    self.kill_directory path
     self.ensure_path path 
+  end
+
+  def self.kill_directory path
+    `rm -rf #{path}` unless (!File.exists? path) || (!File.directory? path)
+  end
+
+  def self.kill_file filename
+    `rm #{filename}` unless !File.exists? filename
   end
     
 private
