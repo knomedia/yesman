@@ -69,7 +69,3 @@ private
   end
 
 end
-
-
-gti = GTestInstaller.new
-gti.download_and_install
