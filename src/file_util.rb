@@ -11,6 +11,11 @@ class FileUtil
     dirs = self.determine_path path
     self.create_directories dirs
   end
+
+  def self.clear_directory path
+    `rm -rf #{path}` unless (!File.exists? path) || (!File.directory? path)
+    self.ensure_path path 
+  end
     
 private
 
