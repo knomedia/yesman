@@ -36,8 +36,3 @@ private
   end
     
 end
-
-
-FileUtil.ensure_path "one/two/three/four"
-FileUtil.ensure_path "one/two/other/"
-FileUtil.ensure_file "one/two/other/testing"
