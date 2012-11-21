@@ -21,6 +21,8 @@ class GTestInstaller
     clean_up_dirs
   end
 
+private
+
   def print_start
     puts "********************************"
     puts "**     Google Test Setup      **"
