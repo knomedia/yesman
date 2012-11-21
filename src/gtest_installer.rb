@@ -1,3 +1,5 @@
+require 'file_util'
+
 class GTestInstaller
   attr_reader :gtest_local_repo_name
   attr_reader :gtest_dir
@@ -51,20 +53,15 @@ private
   end
 
   def create_test_directories
-    verify_dir 'tests'
-    verify_dir 'tests/gtest'
-    verify_dir 'tests/gtest/include'  
+    FileUtil.clear_directory 'tests/gtest'
+    FileUtil.ensure_path 'tests/gtest/include'
   end
 
   def clean_up_dirs
     puts "cleaning up our trash"
-    `rm -rf #{gtest_dir}`
-    `rm tests/gtest/gtest-all.o`
-    `rm -rf tests/gtest/include/gtest/.svn` unless (!File.exists? 'tests/gtest/include/gtest/.svn')
-  end
-
-  def verify_dir dir
-    `mkdir #{dir}` unless (File.exists? dir) && (File.directory? dir)
+    FileUtil.kill_directory gtest_dir
+    FileUtil.kill_file 'tests/gtest/gtest-all.o'
+    FileUtil.kill_directory 'tests/gtest/include/gtest/.svn'
   end
 
   def repo_path
