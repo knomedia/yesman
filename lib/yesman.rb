@@ -34,6 +34,3 @@ class Yesman
   end
 
 end
-
-y = Yesman.new
-
