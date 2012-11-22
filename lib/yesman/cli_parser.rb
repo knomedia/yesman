@@ -28,6 +28,12 @@ class CliParser
     :default => "Project",
     :description =>"The name of the project to build"
 
+  option :debug,
+    :short => "-d DEBUG",
+    :long => "--debug DEBUG",
+    :boolean => true
+
+
   def run(argv=ARGV)
     parse_options(argv)
   end
