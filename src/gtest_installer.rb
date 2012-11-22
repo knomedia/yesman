@@ -1,12 +1,15 @@
 require 'file_util'
 
 class GTestInstaller
+
   attr_reader :gtest_local_repo_name
   attr_reader :gtest_dir
   attr_reader :gtest_path
   attr_reader :attr_names
-  
-  def initialize()
+  attr_reader :params
+
+  def initialize options
+    @params = options
     @gtest_dir = "gtest"
     @gtest_path = "http://googletest.googlecode.com/svn/trunk/"
     @gtest_local_repo_name = "googletest-read-only"
@@ -38,30 +41,30 @@ private
 
   def compile_source
     puts "compiling GTest source code..."
-    `g++ -I #{repo_path}/include/ -I #{repo_path}/ -c #{repo_path}/src/gtest-all.cc -o tests/gtest/gtest-all.o`
+    `g++ -I #{repo_path}/include/ -I #{repo_path}/ -c #{repo_path}/src/gtest-all.cc -o #{params[:tests]}/gtest/gtest-all.o`
   end
 
   def create_static_lib
     puts "creating GTest static lib: 'libgtest.a'"
-    `ar -rv tests/gtest/libgtest.a tests/gtest/gtest-all.o`
+    `ar -rv #{params[:tests]}/gtest/libgtest.a #{params[:tests]}/gtest/gtest-all.o`
   end
   
 
   def copy_needed_gtest_files
     puts "copying needed GTest files to tests dir"
-    FileUtil.recursive_copy "#{repo_path}/include/gtest", "tests/gtest/include"
+    FileUtil.recursive_copy "#{repo_path}/include/gtest", "#{params[:tests]}/gtest/include"
   end
 
   def create_test_directories
-    FileUtil.clear_directory 'tests/gtest'
-    FileUtil.ensure_path 'tests/gtest/include'
+    FileUtil.clear_directory "#{params[:tests]}/gtest"
+    FileUtil.ensure_path "#{params[:tests]}/gtest/include"
   end
 
   def clean_up_dirs
     puts "cleaning up our trash"
     FileUtil.kill_directory gtest_dir
-    FileUtil.kill_file 'tests/gtest/gtest-all.o'
-    FileUtil.kill_directory 'tests/gtest/include/gtest/.svn'
+    FileUtil.kill_file "#{params[:tests]}/gtest/gtest-all.o"
+    FileUtil.kill_directory "#{params[:tests]}/gtest/include/gtest/.svn"
   end
 
   def repo_path
