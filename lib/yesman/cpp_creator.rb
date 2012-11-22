@@ -1,4 +1,4 @@
-require 'file_util'
+require 'yesman/file_util'
 
 class CppCreator
   attr_reader :source

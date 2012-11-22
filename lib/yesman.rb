@@ -1,6 +1,6 @@
-require 'cpp_creator'
-require 'file_util'
-require 'gtest_installer'
+require 'yesman/cpp_creator'
+require 'yesman/file_util'
+require 'yesman/gtest_installer'
 
 class Yesman
   attr_reader :params

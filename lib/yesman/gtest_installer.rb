@@ -1,4 +1,4 @@
-require 'file_util'
+require 'yesman/file_util'
 
 class GTestInstaller
 
