@@ -33,6 +33,11 @@ class CliParser
     :long => "--debug DEBUG",
     :boolean => true
 
+  option :extension,
+    :short => "-e EXTENSION",
+    :long => "--extension EXTENSION",
+    :default => "cpp",
+    :description => "Type of file extension to use for c++ files"
 
   def run(argv=ARGV)
     parse_options(argv)
