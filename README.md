@@ -1,4 +1,6 @@
-# Yesman
+=======
+# yesman
+======
 
 Yesman is a ruby command line interface that creates basic directory structures for starting a C++ project. As a part of the creation of a new project Yesman will download, compile and generally get Google Test setup for the projects testing suite.
 
@@ -10,7 +12,7 @@ To install it simply run:
 
 ## Usage
 
-Using yesman is simple to create a default project simply run:
+To create a default project simply run:
     
     $ yesman new ProjectName
 
