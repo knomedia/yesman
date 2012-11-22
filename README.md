@@ -26,7 +26,7 @@ There are several optional parameters you can use that will adjust the following
 
 -o  Output Directory Name (defaults to "bin")
 
--x  C++ extension to use for generated files (defaults to "cpp")
+-e  C++ extension to use for generated files (defaults to "cpp")
 
 ## Requirements
 
