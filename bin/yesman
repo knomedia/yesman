@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require 'yesman'
+require 'yesman/cli_parser'
+
+options = {}
+
+command = ARGV.shift
+
+def new_project
+  project_name = ARGV.shift
+  parser = CliParser.new
+  parser.run ARGV
+  parser.config[:project_name] = project_name
+  puts "Generating new project: #{parser.config[:project_name]}"
+  y = Yesman.new parser.config
+end
+
+def run_project
+  flag = ARGV.shift
+  if flag == '-d'
+    debug_project
+  else
+    puts "run not yet supported"
+  end
+end
+
+def debug_project
+  puts "debug (-d) not yet supported"
+end
+
+def test_project
+  puts "test not yet supported"
+end
+
+
+case command
+when 'new'
+  new_project
+when 'run'
+  run_project
+when 'test'
+  test_project
+else
+  puts "command: #{command} not recognized"
+end
+
+
+
