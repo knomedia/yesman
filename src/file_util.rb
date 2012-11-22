@@ -1,5 +1,5 @@
 class FileUtil
-  
+
   def self.ensure_file path
     dirs = self.determine_path path
     filename = dirs.pop
