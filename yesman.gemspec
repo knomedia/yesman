@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Jason Madsen"]
   gem.email         = ["knomedia@gmail.com"]
   gem.description   = %q{CLI for quick creation of C++ projects using GTest}
-  gem.summary       = %q{Yesman creates directory structures and download and builds GTest for C++ development projects}
+  gem.summary       = %q{Yesman creates project directory structures, downloads and builds GTest for C++ development projects}
   gem.homepage      = ""
 
   gem.add_dependency 'mixlib-cli'
