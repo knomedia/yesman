@@ -27,7 +27,10 @@ class FileUtil
     
   def self.recursive_copy from, to
     `cp -r #{from} #{to}`
-    
+  end
+
+  def self.write_to_file filename, contents
+    File.open( filename, "w" ) { |f| f.write( contents ) }
   end
 private
 
