@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Yesman::VERSION
   gem.authors       = ["Jason Madsen"]
   gem.email         = ["knomedia@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{CLI for quick creation of C++ projects using GTest}
+  gem.summary       = %q{Yesman creates directory structures and download and builds GTest for C++ development projects}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
