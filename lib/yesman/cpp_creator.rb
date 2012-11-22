@@ -34,11 +34,37 @@ private
   end
 
   def create_source_main
-    FileUtil.ensure_file "#{source}/#{project_name}.#{extension}"
+    filename = "#{source}/#{project_name}.#{extension}"
+    FileUtil.ensure_file filename
+    FileUtil.write_to_file filename, get_source_main
   end
 
   def create_test_main
-    FileUtil.ensure_file "#{tests}/#{project_name}Tests.#{extension}"
+    filename = "#{tests}/#{project_name}Tests.#{extension}"
+    FileUtil.ensure_file filename
+    FileUtil.write_to_file filename, get_test_main
   end
 
+  def get_test_main
+    main = <<END
+#include "gtest/gtest.h"
+
+GTEST_API_ int main(int argc, char **argv) {
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+END
+  end
+
+  def get_source_main
+    main = <<END
+#include <iostream>
+
+int main() {
+  std::cout << "What up world!" << std::endl;
+  return 0;
+}
+
+END
+  end
 end
