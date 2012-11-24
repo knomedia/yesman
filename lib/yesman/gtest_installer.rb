@@ -6,8 +6,7 @@ class GTestInstaller
   attr_reader :gtest_dir
   attr_reader :gtest_path
   attr_reader :attr_names
-  attr_reader :params
-
+  attr_reader :params 
   def initialize options
     @params = options
     @gtest_dir = "gtest"
@@ -29,13 +28,11 @@ class GTestInstaller
 private
 
   def print_start
-    puts "********************************"
-    puts "**     Google Test Setup      **"
-    puts "********************************"
+    puts "Google Test Setup"
   end
 
   def pull_source
-    puts "checkout (svn) of GTest source code..."
+    puts "svn checkout of GTest source code..."
     `svn checkout #{gtest_path} #{repo_path}`
   end
 
@@ -45,7 +42,6 @@ private
   end
 
   def create_static_lib
-    puts "creating GTest static lib: 'libgtest.a'"
     `ar -rv #{params[:tests]}/gtest/libgtest.a #{params[:tests]}/gtest/gtest-all.o`
   end
   
