@@ -3,10 +3,9 @@
 require 'yesman'
 require 'yesman/cli_parser'
 require 'yesman/config_proxy'
+require 'yesman/global_config'
 
-options = {}
 
-command = ARGV.shift
 
 def new_project
   project_name = ARGV.shift
@@ -39,17 +38,32 @@ def test_project
   puts "test not yet supported"
 end
 
-
-case command
-when 'new'
-  new_project
-when 'run'
-  run_project
-when 'test'
-  test_project
-else
-  puts "command: #{command} not recognized"
+def init 
+  load_global_config
+  run_commands
 end
+
+def load_global_config
+  gc = GlobalConfig.new.load
+end
+
+def run_commands
+  command = ARGV.shift
+  case command
+  when 'new'
+    new_project
+  when 'run'
+    run_project
+  when 'test'
+    test_project
+  else
+    puts "command: #{command} not recognized"
+  end
+end
+
+
+init
+
 
 
 
