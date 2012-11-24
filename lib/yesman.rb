@@ -28,6 +28,7 @@ class Yesman
   def create_all
     p = CppCreator.new params
     p.create_project
+    puts "Project directories created"
 
     g = GTestInstaller.new params
     g.download_and_install
