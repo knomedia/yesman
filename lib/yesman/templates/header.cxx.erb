@@ -1,0 +1,18 @@
+#ifndef <%=class_name.upcase%>_H_
+#define <%=class_name.upcase%>_H_
+
+<% if namespace %>
+namespace <%=namespace%> {
+<%end>
+
+class <%=class_name%><%if super_class%>: public <%if super_class.namespace%><%=super_class.namespace%>::<%=super_class%><%end%><%end%> {
+public:
+  <%=class_name%>();
+  virtual ~<%=class_name%>();
+};
+
+
+<% if namespace %>
+} /* namespace <%=namespace%> */
+<%end>
+#endif /* <%=class_name.upcase%>_H_ */
