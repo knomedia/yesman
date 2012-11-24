@@ -36,10 +36,12 @@ private
 
   def self.create_directories dirs
     next_path = ""
+    exists = false
     dirs.each do |dirname|
       next_path << dirname << "/"
-      self.verify_or_make_dir next_path
+      exists = self.verify_or_make_dir next_path
     end
+    exists
   end
 
   def self.determine_path path
@@ -48,11 +50,17 @@ private
   end
 
   def self.verify_or_make_dir dirname
-    `mkdir #{dirname}` unless (File.exists? dirname) && (File.directory? dirname) 
+    pre_existing = (File.exists? dirname) && (File.directory? dirname)
+    `mkdir #{dirname}` unless pre_existing 
+    pre_existing
   end
 
   def self.verify_or_make_file filename
-    `touch #{filename}` unless (File.exists? filename)
+    pre_existing = (File.exists? filename)
+    unless pre_existing
+      `touch #{filename}`
+    end
+    pre_existing
   end
     
 end
