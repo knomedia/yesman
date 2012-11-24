@@ -2,6 +2,7 @@
 
 require 'yesman'
 require 'yesman/cli_parser'
+require 'yesman/config_proxy'
 
 options = {}
 
@@ -13,11 +14,16 @@ def new_project
   parser.run ARGV
   parser.config[:project_name] = project_name
   puts "Generating new project: #{parser.config[:project_name]}"
+
   y = Yesman.new parser.config
+  cp = ConfigProxy.new
+  cp.create_config parser.config
 end
 
 def run_project
   flag = ARGV.shift
+  #cp = ConfigProxy.new
+  #puts cp.params
   if flag == '-d'
     debug_project
   else
