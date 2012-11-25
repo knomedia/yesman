@@ -1,11 +1,11 @@
-#ifndef <%=@class_name%>_H_
-#define <%=@class_name%>_H_
+#ifndef <%=@class_name.upcase%>_H_
+#define <%=@class_name.upcase%>_H_
 
 <% if @namespace %>
 namespace <%=@namespace%> {
 <%end%>
 
-class <%=@class_name%><%if @super_class%>: public <%if @super_class.namespace%><%=@super_class.namespace%>::<%=@super_class%><%end%><%end%> {
+class <%=@class_name%><%if @super_class%>: public <%if @super_class.namespace%><%=@super_class.namespace%>::<%end%><%=@super_class.class_name%><%end%> {
 public:
   <%=@class_name%>();
   virtual ~<%=@class_name%>();
