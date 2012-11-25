@@ -1,3 +1,5 @@
+require 'erb'
+
 class ClassType
   attr_reader :class_name
   attr_reader :namespace
@@ -23,6 +25,9 @@ class ClassType
     end
   end
 
+  def get_binding
+    binding
+  end
 
   private
 
@@ -41,6 +46,5 @@ class ClassType
       @super_class.parse_from_string input
     end
   end
-
 
 end
