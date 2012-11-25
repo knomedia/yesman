@@ -4,7 +4,8 @@ require 'yesman'
 require 'yesman/cli_parser'
 require 'yesman/config_proxy'
 require 'yesman/global_config'
-
+require 'yesman/class_type'
+require 'yesman/templater'
 
 
 def new_project
@@ -38,6 +39,17 @@ def test_project
   puts "test not yet supported"
 end
 
+def generate
+  puts "Here we goo..."
+  c = ClassType.new
+  c.parse_from_string "jsk::Testing < std:Alternate"
+  path = "lib/yesman/templates/header.cxx.erb"
+  puts path
+  t = Templater.new
+  output = t.merge c, path 
+  puts output
+end
+
 def init 
   load_global_config
   run_commands
@@ -56,6 +68,8 @@ def run_commands
     run_project
   when 'test'
     test_project
+  when 'generate'
+    generate
   else
     puts "command: #{command} not recognized"
   end
