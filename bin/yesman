@@ -40,14 +40,19 @@ def test_project
 end
 
 def generate
-  puts "Here we goo..."
   c = ClassType.new
-  c.parse_from_string "jsk::Testing < std:Alternate"
-  path = "lib/yesman/templates/header.cxx.erb"
-  puts path
+  c.parse_from_string "jsk::Testing < fred::Alternate"
+  header_path = "lib/yesman/templates/header.cxx.erb"
+  class_path = "lib/yesman/templates/class.cxx.erb"
+  test_path = "lib/yesman/templates/test.cxx.erb"
+
   t = Templater.new
-  output = t.merge c, path 
+  output = t.merge c, header_path 
   puts output
+  puts ""
+  puts t.merge c, class_path
+  puts ""
+  puts t.merge c, test_path
 end
 
 def init 
