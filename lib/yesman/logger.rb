@@ -15,4 +15,7 @@ class Logger
   def log_message message
     puts "#{message}"
   end
+  def line_break
+    puts ""
+  end
 end
