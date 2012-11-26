@@ -1,4 +1,5 @@
 require 'yesman/file_util'
+require 'yesman/logger'
 
 class GTestInstaller
 
@@ -12,7 +13,7 @@ class GTestInstaller
     @gtest_dir = "gtest"
     @gtest_path = "http://googletest.googlecode.com/svn/trunk/"
     @gtest_local_repo_name = "googletest-read-only"
-    
+    @log = Logger.new 
   end
 
   def download_and_install
@@ -28,16 +29,16 @@ class GTestInstaller
 private
 
   def print_start
-    puts "Google Test Setup"
+    @log.log_heading "Setting up Google Test Framework"
   end
 
   def pull_source
-    puts "svn checkout of GTest source code..."
+    @log.log_message "svn checkout of GTest (could take a minute)..."
     `svn checkout #{gtest_path} #{repo_path}`
   end
 
   def compile_source
-    puts "compiling GTest source code..."
+    @log.log_message "compiling GTest source code..."
     `g++ -I #{repo_path}/include/ -I #{repo_path}/ -c #{repo_path}/src/gtest-all.cc -o #{params[:tests]}/gtest/gtest-all.o`
   end
 
@@ -47,7 +48,7 @@ private
   
 
   def copy_needed_gtest_files
-    puts "copying needed GTest files to tests dir"
+    @log.log_message "copying needed GTest files to tests dir"
     FileUtil.recursive_copy "#{repo_path}/include/gtest", "#{params[:tests]}/gtest/include"
   end
 

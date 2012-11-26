@@ -2,6 +2,7 @@ require 'yesman/class_type'
 require 'yesman/templater'
 require 'yesman/file_util'
 require 'yesman/config_proxy'
+require 'yesman/logger'
 
 class ClassGenerator
 
@@ -21,6 +22,7 @@ class ClassGenerator
     @gtest_main_path = create_path "gtest_main.cxx.erb"
 
     @templater = Templater.new
+    @log = Logger.new
   end
   
   def create_class_files input
@@ -28,7 +30,9 @@ class ClassGenerator
     files = [header_path, class_path, test_path]
     files.each do |path|
       file_contents = @templater.merge c, path
-      FileUtil.write_to_file create_file_name( c, path ), file_contents
+      file_name = create_file_name(c,path)
+      FileUtil.write_to_file file_name, file_contents
+      @log.log_creation "created", File.absolute_path( file_name )
     end
 
   end
@@ -37,12 +41,15 @@ class ClassGenerator
    c = create_class_type "Main"
    output_file_path = "#{params[:source]}/#{params[:project_name]}.#{params[:extension]}"
    FileUtil.write_to_file( output_file_path, ( @templater.merge c, main_path) )
+   @log.log_creation "created", File.absolute_path( output_file_path )
   end
 
   def create_gtest_main
     c = create_class_type "GTestMain"
     file_contents = @templater.merge c, gtest_main_path
-    FileUtil.write_to_file "#{params[:tests]}/#{params[:project_name]}Tests.#{params[:extension]}", file_contents
+    file_path = "#{params[:tests]}/#{params[:project_name]}Tests.#{params[:extension]}"
+    FileUtil.write_to_file file_path , file_contents
+    @log.log_creation "created", File.absolute_path( file_path )
   end
 
   private
