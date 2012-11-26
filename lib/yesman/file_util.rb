@@ -30,6 +30,7 @@ class FileUtil
   end
 
   def self.write_to_file filename, contents
+    self.ensure_file filename
     File.open( filename, "w" ) { |f| f.write( contents ) }
   end
 private
