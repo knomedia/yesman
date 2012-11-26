@@ -13,7 +13,6 @@ def new_project
   parser = CliParser.new
   parser.run ARGV
   parser.config[:project_name] = project_name
-  puts "Generating new project: #{parser.config[:project_name]}"
 
   y = Yesman.new parser.config
 end
