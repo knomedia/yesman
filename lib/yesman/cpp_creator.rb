@@ -1,4 +1,5 @@
 require 'yesman/file_util'
+require 'yesman/class_generator'
 
 class CppCreator
   attr_reader :source
@@ -9,6 +10,7 @@ class CppCreator
 
   def initialize(params = {})
     set_defaults params
+    @gen = ClassGenerator.new
   end
 
   def create_project
@@ -34,37 +36,10 @@ private
   end
 
   def create_source_main
-    filename = "#{source}/#{project_name}.#{extension}"
-    FileUtil.ensure_file filename
-    FileUtil.write_to_file filename, get_source_main
+    @gen.create_main    
   end
 
   def create_test_main
-    filename = "#{tests}/#{project_name}Tests.#{extension}"
-    FileUtil.ensure_file filename
-    FileUtil.write_to_file filename, get_test_main
-  end
-
-  def get_test_main
-    main = <<END
-#include "gtest/gtest.h"
-
-GTEST_API_ int main(int argc, char **argv) {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
-END
-  end
-
-  def get_source_main
-    main = <<END
-#include <iostream>
-
-int main() {
-  std::cout << "What up world!" << std::endl;
-  return 0;
-}
-
-END
+    @gen.create_gtest_main
   end
 end
