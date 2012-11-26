@@ -61,6 +61,7 @@ private
     FileUtil.kill_directory gtest_dir
     FileUtil.kill_file "#{params[:tests]}/gtest/gtest-all.o"
     FileUtil.kill_directory "#{params[:tests]}/gtest/include/gtest/.svn"
+    FileUtil.kill_directory "#{params[:tests]}/gtest/include/gtest/include/.svn"
   end
 
   def repo_path
