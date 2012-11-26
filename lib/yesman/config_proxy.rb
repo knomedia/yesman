@@ -30,6 +30,10 @@ class ConfigProxy
     @params
   end
 
+  def config_exists?
+    return File.exists? config_path
+  end
+
   private
   def verify_config_exists
     FileUtil.ensure_file config_path
