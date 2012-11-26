@@ -25,7 +25,7 @@ class ClassGenerator
   
   def create_class_files input
     c = create_class_type input
-    files = %[header_path class_path test_path]
+    files = [header_path, class_path, test_path]
     files.each do |path|
       file_contents = @templater.merge c, path
       FileUtil.write_to_file create_file_name( c, path ), file_contents
@@ -55,7 +55,7 @@ class ClassGenerator
       file_name << "#{params[:source]}/" << class_type.class_name << ".h"
     when class_path
       file_name << "#{params[:source]}/" << class_type.class_name << ".#{params[:extension]}"
-    when tests_path
+    when test_path
       file_name << "#{params[:tests]}/" << class_type.class_name << "Test.#{params[:extension]}"
     else
       file_name << "undefined"
