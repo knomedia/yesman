@@ -28,6 +28,23 @@ There are several optional parameters you can use that will adjust the following
 
 -e  C++ extension to use for generated files (defaults to "cpp")
 
+To generate class files (along with headers and tests) from inside of your project directory run:
+
+    $ yesman generate "jsk::SuperClass<jsk::BaseClass"
+
+The string passed to generate (also aliased to 'g') will create your class file, header, and test file. The format is:
+
+    "namespace::ClassName<namespace::ParentClass"
+
+Namespaces and inheritance are optional, so you could just as easily run:
+
+    $ yesman g "SuperClass<BaseClass
+
+or 
+
+    $ yesman g "SuperClass"
+
+
 ## Requirements
 
 Under the hood there are several technologies that Yesman relies on. In order to run you will need the following:
