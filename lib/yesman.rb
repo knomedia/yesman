@@ -7,6 +7,7 @@ class Yesman
 
   def initialize options = {}
     create_defaults options
+    @cp = ConfigProxy.new
     init
   end
 
@@ -26,12 +27,14 @@ class Yesman
   end
 
   def create_all
+    @cp.create_config params
     p = CppCreator.new params
     p.create_project
     puts "Project directories created"
 
     g = GTestInstaller.new params
     g.download_and_install
+
   end
 
 end

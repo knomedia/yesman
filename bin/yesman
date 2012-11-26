@@ -16,8 +16,6 @@ def new_project
   puts "Generating new project: #{parser.config[:project_name]}"
 
   y = Yesman.new parser.config
-  cp = ConfigProxy.new
-  cp.create_config parser.config
 end
 
 def run_project
