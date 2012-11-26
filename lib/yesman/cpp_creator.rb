@@ -1,4 +1,5 @@
 require 'yesman/file_util'
+require 'yesman/logger'
 require 'yesman/class_generator'
 
 class CppCreator
@@ -11,6 +12,7 @@ class CppCreator
   def initialize(params = {})
     set_defaults params
     @gen = ClassGenerator.new
+    @log = Logger.new
   end
 
   def create_project
@@ -30,9 +32,11 @@ private
   end
 
   def create_dirs
-    FileUtil.ensure_path source
-    FileUtil.ensure_path tests
-    FileUtil.ensure_path output
+    paths = [source, tests, output]
+    paths.each do |path|
+      FileUtil.ensure_path path
+      @log.log_creation "Creating directory", File.absolute_path( path )
+    end
   end
 
   def create_source_main
