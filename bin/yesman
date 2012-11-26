@@ -38,19 +38,15 @@ def test_project
 end
 
 def generate
-  c = ClassType.new
-  c.parse_from_string "jsk::Testing < fred::Alternate"
-  header_path = "lib/yesman/templates/header.cxx.erb"
-  class_path = "lib/yesman/templates/class.cxx.erb"
-  test_path = "lib/yesman/templates/test.cxx.erb"
-
-  t = Templater.new
-  output = t.merge c, header_path 
-  puts output
-  puts ""
-  puts t.merge c, class_path
-  puts ""
-  puts t.merge c, test_path
+  c = ConfigProxy.new
+  if (c.config_exists?) 
+    info = ARGV.shift
+    g = ClassGenerator.new
+    puts "Creating #{info}"
+    g.create_class_files info
+  else
+    puts "Da Da Dunn... you are not in a yesman project ABORTING..."
+  end
 end
 
 def init 
@@ -72,6 +68,8 @@ def run_commands
   when 'test'
     test_project
   when 'generate'
+    generate
+  when 'g'
     generate
   else
     puts "command: #{command} not recognized"
