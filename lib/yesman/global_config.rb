@@ -21,7 +21,8 @@ class GlobalConfig
 
   def copy_templates
     FileUtil.ensure_path "#{global_config_path}/templates"
-    FileUtil.recursive_copy "lib/yesman/templates", "#{global_config_path}"
+    templates = File.join(File.dirname(File.expand_path(__FILE__)), 'templates');
+    FileUtil.recursive_copy(templates, global_config_path)
   end
 
   def create_global_config
