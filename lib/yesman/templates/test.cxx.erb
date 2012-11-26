@@ -1,4 +1,7 @@
 #include "gtest/gtest.h"
+#include "../<%=source%>/<%=@class_name%>.h"
+
+<%if @namespace%>using namespace <%=@namespace%>;<%end%>
 
 class <%=class_name%>Test : public testing::Test {
 protected:
@@ -19,6 +22,6 @@ protected:
 
 };
 
-TEST_F(<%=class_name%>, Method) {
+TEST_F(<%=class_name%>Test, Method) {
   EXPECT_EQ( 1, 1 );
 }

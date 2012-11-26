@@ -1,17 +1,16 @@
 #ifndef <%=@class_name.upcase%>_H_
 #define <%=@class_name.upcase%>_H_
-
+<% if @super_class%>#include "<%=@super_class.class_name%>.h"<%end%>
 <% if @namespace %>
 namespace <%=@namespace%> {
 <%end%>
-
 class <%=@class_name%><%if @super_class%>: public <%if @super_class.namespace%><%=@super_class.namespace%>::<%end%><%=@super_class.class_name%><%end%> {
 public:
   <%=@class_name%>();
   virtual ~<%=@class_name%>();
+
+
 };
-
-
 <% if @namespace %>
 } /* namespace <%=@namespace%> */
 <%end%>

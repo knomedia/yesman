@@ -1,14 +1,17 @@
 require 'erb'
+require 'yesman/config_proxy'
 
 class ClassType
   attr_reader :class_name
   attr_reader :namespace
   attr_reader :super_class
+  attr_reader :source
 
   def initialize
     @class_name = nil
     @namespace = nil
     @super_class = nil
+    @source = ConfigProxy.new.params[:source]
   end
 
   def parse_from_string input
