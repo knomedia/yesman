@@ -16,7 +16,7 @@ class Templater
   end
 
   def apply_class_to_template
-   @output = @loaded_template.run( @class_type.get_binding ) 
+    @output = @loaded_template.result( @class_type.get_binding ) 
   end
   
 end
