@@ -1,15 +1,17 @@
+require 'paint'
+
 class Logger
   
   def log_emphasis heading, message
-    puts "#{heading} #{message}"
+    puts "#{Paint[heading, :green]} #{Paint[message, :blue]}"
   end
 
   def log_creation heading, file_path
-    puts "... #{heading} #{file_path}"
+    puts "... #{Paint[heading, :green]} #{file_path}"
   end
 
   def log_heading heading
-    puts "#{heading}"
+    puts "#{Paint[heading, :yellow]}"
   end
 
   def log_message message
