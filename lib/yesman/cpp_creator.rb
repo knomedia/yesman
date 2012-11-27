@@ -35,7 +35,7 @@ private
     paths = [source, tests, output]
     paths.each do |path|
       FileUtil.ensure_path path
-      @log.log_creation "created", File.absolute_path( path )
+      @log.log_creation "created", "#{path}/"
     end
   end
 
