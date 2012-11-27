@@ -23,8 +23,9 @@ class Yesman
   end
 
   def init
+    @log.line_break
+    @log.log_heading "Creating initial directories and files"
     FileUtil.ensure_path params[:project_name]
-    @log.log_emphasis "Project: #{params[:project_name]}", "being created"
     Dir.chdir( params[:project_name] )
     create_all
   end

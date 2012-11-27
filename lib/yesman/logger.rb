@@ -3,7 +3,7 @@ require 'paint'
 class Logger
   
   def log_emphasis heading, message
-    puts "#{Paint[heading, :green]} #{Paint[message, :blue]}"
+    puts "#{Paint[heading, :green]} #{Paint[message, :cyan]}"
   end
 
   def log_creation heading, file_path
