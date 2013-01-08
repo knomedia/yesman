@@ -3,8 +3,9 @@ require 'yesman/templater'
 require 'yesman/file_util'
 require 'yesman/config_proxy'
 require 'yesman/logger'
+require 'yesman/rake_gen_data'
 
-class ClassGenerator
+class FileGenerator
 
   attr_reader :templates_path
   attr_reader :header_path
@@ -12,6 +13,7 @@ class ClassGenerator
   attr_reader :test_path
   attr_reader :main_path
   attr_reader :gtest_main_path
+  attr_reader :rake_file_path
 
   def initialize
     @templates_path = "#{Dir.home}/.yesman/templates/"
@@ -20,6 +22,7 @@ class ClassGenerator
     @test_path = create_path "test.cxx.erb"
     @main_path = create_path "main.cxx.erb"
     @gtest_main_path = create_path "gtest_main.cxx.erb"
+    @rake_file_path = create_path "rakefile.erb"
 
     @templater = Templater.new
     @log = Logger.new
@@ -49,6 +52,14 @@ class ClassGenerator
     file_contents = @templater.merge c, gtest_main_path
     file_path = "#{params[:tests]}/#{params[:project_name]}Tests.#{params[:extension]}"
     FileUtil.write_to_file file_path , file_contents
+    @log.log_creation "created", file_path
+  end
+
+  def create_build_file
+    rake_data = RakeGenData.new
+    file_contents = @templater.merge rake_data, rake_file_path
+    file_path = "Rakefile"
+    FileUtil.write_to_file file_path, file_contents
     @log.log_creation "created", file_path
   end
 
