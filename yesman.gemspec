@@ -12,8 +12,9 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Yesman creates project directory structures, downloads and builds GTest for C++ development projects}
   gem.homepage      = ""
 
-  gem.add_dependency 'mixlib-cli'
-  gem.add_dependency 'paint'
+  gem.add_dependency 'mixlib-cli', '~> 1.2.2'
+  gem.add_dependency 'paint', '~> 0.8.5'
+  gem.add_dependency 'versionomy', '~> 0.4.4'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
