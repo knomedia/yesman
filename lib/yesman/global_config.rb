@@ -1,4 +1,5 @@
 require 'yesman/version'
+require 'versionomy'
 
 class GlobalConfig
   attr_reader :pre_existing
@@ -62,9 +63,11 @@ class GlobalConfig
     if !File.exists? version_path
       old = true
     else
-      contents = File.read( version_path ).to_i
-      puts "Current global yesman version: #{contents}"
-      if contents != Yesman::VERSION
+      sys_version = Versionomy.parse( File.read( version_path ).to_s )
+      current_version = Versionomy.parse ( Yesman::VERSION )
+      if sys_version < Yesman::VERSION
+
+        puts "Current global yesman version: #{sys_version}, re-writting globals"
         old = true
       end
     end
