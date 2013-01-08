@@ -17,7 +17,7 @@ namespace "main" do
   end
 
   task :reset do |t|
-    OBJ.gsub!(/src/, "<%=output_dir%>/<%=source_dir%>")
+    OBJ.gsub!(/<%=source_dir%>/, "<%=output_dir%>/<%=source_dir%>")
   end
 
   directory "<%=output_dir%>/<%=source_dir%>"
@@ -75,7 +75,7 @@ namespace "tests" do
   task :build
 
 
-  rule '.o' => '.cpp' do |t|
+  rule '.o' => '.<%=extension%>' do |t|
     sh "g++ #{t.source} -c -o <%=output_dir%>/#{t.name} -I<%=test_dir%>/gtest/include"
   end
   
