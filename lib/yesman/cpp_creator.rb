@@ -1,6 +1,6 @@
 require 'yesman/file_util'
 require 'yesman/logger'
-require 'yesman/class_generator'
+require 'yesman/file_generator'
 
 class CppCreator
   attr_reader :source
@@ -11,7 +11,7 @@ class CppCreator
 
   def initialize(params = {})
     set_defaults params
-    @gen = ClassGenerator.new
+    @gen = FileGenerator.new
     @log = Logger.new
   end
 
@@ -19,6 +19,7 @@ class CppCreator
     create_dirs
     create_source_main
     create_test_main
+    create_build_file
   end
 
 private 
@@ -45,5 +46,9 @@ private
 
   def create_test_main
     @gen.create_gtest_main
+  end
+
+  def create_build_file
+    @gen.create_build_file
   end
 end
