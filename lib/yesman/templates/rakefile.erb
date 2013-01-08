@@ -8,7 +8,6 @@ TOBJ = TESTS.ext('o')
 
 namespace "main" do
 
-
   desc "Compile main application"
   task :compile => [ "<%=output_dir%>/<%=source_dir%>", :reset, "main"]
 
@@ -39,7 +38,6 @@ namespace "main" do
   task :build
 
 end
-
 
 namespace "tests" do
 
@@ -74,19 +72,18 @@ namespace "tests" do
   task :build => [:run]
   task :build
 
-
   rule '.o' => '.<%=extension%>' do |t|
     sh "g++ #{t.source} -c -o <%=output_dir%>/#{t.name} -I<%=test_dir%>/gtest/include"
   end
-  
 
 end
-
 
 rule '.o' => '.<%=extension%>' do |t|
   sh "g++ #{t.source} -c -o <%=output_dir%>/#{t.name}"
 end
 
-
-# Insert your file dependencies here
-# file 'FileName.o' =>[ 'Header.h', 'OtherHeader.h' ]
+# Insert your file dependencies here:
+# file 'FileName.o' =>[ 'FileName.c', 'Header.h', 'OtherHeader.h' ]
+# 
+# OR include them from another file like so:
+# import "your_file"
