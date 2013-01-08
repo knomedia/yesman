@@ -40,7 +40,7 @@ def generate
   c = ConfigProxy.new
   if (c.config_exists?) 
     info = ARGV.shift
-    g = ClassGenerator.new
+    g = FileGenerator.new
     puts "Creating #{info}"
     g.create_class_files info
   else
