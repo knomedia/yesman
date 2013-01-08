@@ -3,6 +3,7 @@ require 'yesman/file_util'
 require 'yesman/gtest_installer'
 require 'yesman/logger'
 
+module Yesman
 class Yesman
   attr_reader :params
 
@@ -42,4 +43,5 @@ class Yesman
     @log.log_emphasis "Setup complete!", "You are clear for take off."
   end
 
+end
 end

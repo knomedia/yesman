@@ -14,7 +14,7 @@ def new_project
   parser.run ARGV
   parser.config[:project_name] = project_name
 
-  y = Yesman.new parser.config
+  y = Yesman::Yesman.new parser.config
 end
 
 def run_project
