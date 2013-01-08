@@ -1,36 +1,36 @@
-SRC = FileList['src/*.cpp']
-SRC.include('src/*.cc')
+SRC = FileList['<%=source_dir %>/*.<%=extension%>']
 OBJ = SRC.ext('o');
 
-TESTS = FileList['tests/*.cpp']
-TESTS.include('src/*.cpp')
+TESTS = FileList['<%=test_dir %>/*.<%=extension %>']
+TESTS.include('<%=source_dir %>/*.<%=extension%>')
+TESTS.exclude('<%=source_dir %>/<%=project_name%>.<%=extension%>')
 TOBJ = TESTS.ext('o')
 
 namespace "main" do
 
 
   desc "Compile main application"
-  task :compile => [ "bin/src", :reset, "main"]
+  task :compile => [ "<%=output_dir%>/<%=source_dir%>", :reset, "main"]
 
   task :show do |t|
     OBJ.each { |o| puts o } 
   end
 
   task :reset do |t|
-    OBJ.gsub!(/src/, "bin/src")
+    OBJ.gsub!(/src/, "<%=output_dir%>/<%=source_dir%>")
   end
 
-  directory "bin/src"
+  directory "<%=output_dir%>/<%=source_dir%>"
 
   file "main" => OBJ do
-    sh "g++ -o bin/main #{OBJ}"
+    sh "g++ -o <%=output_dir%>/main #{OBJ}"
   end
 
   desc "Run main application"
   task :run do |t|
     puts "Running source..."
     sh "clear"
-    sh "./bin/main"
+    sh "./<%=output_dir%>/main"
   end
 
   desc "Build & Run main application"
@@ -44,29 +44,29 @@ end
 namespace "tests" do
 
   desc "Compile all tests"
-  task :compile => [ "bin/tests", "bin/src", :reset, "test_runner"]
+  task :compile => [ "<%=output_dir %>/<%=test_dir%>", "<%= output_dir%>/<%=source_dir %>", :reset, "test_runner"]
 
   task :show do |t|
     TOBJ.each { |o| puts o } 
   end
 
   task :reset do |t|
-    TOBJ.gsub!(/tests/, "bin/tests")
-    TOBJ.gsub!(/src/, "bin/src")
+    TOBJ.gsub!(/<%=test_dir%>/, "<%=output_dir%>/<%=test_dir%>")
+    TOBJ.gsub!(/<%= source_dir %>/, "<%= output_dir %>/<%=source_dir%>")
   end
 
-  directory "bin/tests"
-  directory "bin/src"
+  directory "<%=output_dir%>/<%=test_dir%>"
+  directory "<%=output_dir%>/<%=source_dir%>"
 
   file "test_runner" => TOBJ do
-    sh "g++ -o bin/test_runner #{TOBJ} -Itests/gtest/include tests/gtest/libgtest.a"
+    sh "g++ -o <%=output_dir%>/test_runner #{TOBJ} -I<%=test_dir%>/gtest/include <%=test_dir%>/gtest/libgtest.a"
   end
 
   desc "Run test suite"
   task :run do |t|
     puts "Running tests..."
     sh "clear"
-    sh "./bin/test_runner"
+    sh "./<%=output_dir%>/test_runner"
   end
 
   desc "Build & Run all tests"
@@ -76,25 +76,17 @@ namespace "tests" do
 
 
   rule '.o' => '.cpp' do |t|
-    sh "g++ #{t.source} -c -o bin/#{t.name} -Itests/gtest/include"
+    sh "g++ #{t.source} -c -o <%=output_dir%>/#{t.name} -I<%=test_dir%>/gtest/include"
   end
   
 
 end
 
 
-rule '.o' => '.cpp' do |t|
-  sh "g++ #{t.source} -c -o bin/#{t.name}"
+rule '.o' => '.<%=extension%>' do |t|
+  sh "g++ #{t.source} -c -o <%=output_dir%>/#{t.name}"
 end
 
-rule '.o' => '.cc' do |t|
-  sh "g++ #{t.source} -c -o bin/#{t.name}"
-end
 
-# File dependancies
-# You should look at creating these by loading all files / parsing the #includes
-file 'FinalExam.o' =>[ 'RedBlackTreeFactory.h', 'TwoThreeTreeFactory.h' ]
-file 'RBNode.o' => [ 'RedBlackNodeInterface.h', 'NColor.h' ]
-file 'RBTree.o' => [ 'RBNode.h', 'RBTree.h', 'RedBlackTreeInterface.h', 'RedBlackNodeInterface.h', 'NColor.h', 'NodeBalancer.h' ]
-file 'RedBlackTreeFactory.o' => [ 'RedBlackTreeInterface.h', 'RBTree.h' ]
-file 'NodeBalancer.o' => ['RBnode.h', 'NColor.h', 'RedBlackNodeInterface.h']
+# Insert your file dependencies here
+# file 'FileName.o' =>[ 'Header.h', 'OtherHeader.h' ]

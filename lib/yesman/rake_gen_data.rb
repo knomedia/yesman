@@ -3,6 +3,12 @@ require 'erb'
 
 class RakeGenData
 
+  attr_reader :source_dir
+  attr_reader :test_dir
+  attr_reader :output_dir
+  attr_reader :project_name
+  attr_reader :extension
+
   def initialize(args = {})
     params = ConfigProxy.new.params
     @source_dir = params[:source]
